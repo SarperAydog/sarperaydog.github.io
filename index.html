@@ -63,9 +63,30 @@
     pointer-events: none;
     border: 0;
   }
+  .video-source-link{
+    position: absolute;
+    bottom: 18px; right: 18px;
+    z-index: 5;
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600; font-size: 12.5px; letter-spacing:0.03em;
+    color: #f2f2ef;
+    background: rgba(10,10,10,0.55);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 7px 12px;
+    border-radius: 3px;
+    text-decoration:none;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, background 0.2s ease;
+  }
+  .video-source-link:hover{
+    opacity: 1;
+    background: rgba(10,10,10,0.8);
+  }
   @media (max-width: 720px){
     .video-banner{ height: 280px; }
     .video-banner .yt-cover{ min-height: 280px; min-width: 497.8px; }
+    .video-source-link{ font-size: 11px; padding: 6px 10px; bottom: 12px; right: 12px; }
   }
 
   /* ---- GALLERY VIEW ---- */
@@ -375,6 +396,7 @@
 
   <div class="video-banner" id="video-banner">
     <div id="home-yt-player"></div>
+    <a class="video-source-link" href="https://youtu.be/_c6lbdXHrvU" target="_blank" rel="noopener">Artwork ↗</a>
   </div>
 
   <header>

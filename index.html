@@ -47,7 +47,7 @@
   .video-banner{
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 460px;
     overflow: hidden;
     background: #000;
     border-bottom: 1px solid #1c1c1c;
@@ -57,15 +57,15 @@
     top: 50%; left: 50%;
     width: 100vw;
     height: 56.25vw; /* 16:9 based on full viewport width */
-    min-height: 340px;
-    min-width: 604.4px; /* 340px * 16/9, ensures full cover on narrow/tall viewports */
+    min-height: 460px;
+    min-width: 817.8px; /* 460px * 16/9, ensures full cover on narrow/tall viewports */
     transform: translate(-50%, -50%);
     pointer-events: none;
     border: 0;
   }
   @media (max-width: 720px){
-    .video-banner{ height: 220px; }
-    .video-banner .yt-cover{ min-height: 220px; min-width: 391px; }
+    .video-banner{ height: 280px; }
+    .video-banner .yt-cover{ min-height: 280px; min-width: 497.8px; }
   }
 
   /* ---- GALLERY VIEW ---- */
@@ -165,6 +165,11 @@
     display:flex; align-items:center; gap:8px;
     font-size: 15px; color:#8a8a86; margin-bottom: 34px;
     cursor:pointer;
+    position: sticky; top: 81px; z-index: 40;
+    background: #0a0a0a;
+    padding: 14px 5vw;
+    margin-left: -5vw; margin-right: -5vw; margin-top: -14px;
+    border-bottom: 1px solid #1c1c1c;
   }
   .back-link:hover{ color:#e8a44c; }
   .project-hero h1{
@@ -374,7 +379,7 @@
   <div class="video-banner" id="video-banner">
     <iframe
       class="yt-cover"
-      src="https://www.youtube-nocookie.com/embed/_c6lbdXHrvU?autoplay=1&mute=1&loop=1&playlist=_c6lbdXHrvU&start=20&end=40&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1"
+      src="https://www.youtube-nocookie.com/embed/_c6lbdXHrvU?autoplay=1&mute=1&loop=1&playlist=_c6lbdXHrvU&start=30&end=50&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1"
       title="Environment showcase"
       frameborder="0"
       referrerpolicy="strict-origin-when-cross-origin"
@@ -420,7 +425,7 @@
         <div>
           <h1>Sarper Aydog</h1>
           <div class="role-line">Game Designer - Level Designer</div>
-          <p>Passionate about arthouse films and indie games, I aim to create compelling game experiences that blend artistic expression with broad appeal — delivering both fun and a meaningful, positive impact.</p>
+          <p>Passionate about arthouse films and indie games, I aim to create compelling game experiences that blend artistic expression with broad appeal, delivering both fun and a meaningful, positive impact.</p>
           <div class="contact-row">
             <a href="mailto:aydogsarper@gmail.com">aydogsarper@gmail.com</a>
             <span>Munich, Germany</span>
@@ -432,17 +437,17 @@
       <div class="about-section">
         <h2>Education</h2>
         <div class="edu-item">
-          <div class="when">2023 — present</div>
+          <div class="when">2023 - present</div>
           <div class="what">Digital Games, M.A.</div>
           <div class="where">Cologne Game Lab, TH Köln, Germany</div>
         </div>
         <div class="edu-item">
-          <div class="when">2019 — 2021</div>
+          <div class="when">2019 - 2021</div>
           <div class="what">Computer Graphics and Game Technologies, M.A.</div>
           <div class="where">Hacettepe University, Ankara, Türkiye</div>
         </div>
         <div class="edu-item">
-          <div class="when">2012 — 2019</div>
+          <div class="when">2012 - 2019</div>
           <div class="what">Mechatronics Engineering, B.Sc.</div>
           <div class="where">Atılım University, Ankara, Türkiye</div>
         </div>
@@ -716,70 +721,6 @@
         <p>Alongside that, I studied the studio's in-house level editor and came up with level concepts that I felt the game could benefit from, with a strong focus on gameplay, environmental storytelling, and player experience. One example was a caravanserai-style desert village, built around the idea that a new trade route had just opened up nearby and the settlement was growing because of it, since I noticed there wasn't a location anywhere in the game showing a newly developing settlement. I designed it with part of the village already established and part of it still under construction. Since the screenshot I have is from an early stage of the work, it only shows the early layout of the concept.</p>
         <img class="body-image" src="bannerlord-caravanserai-layout.jpg" alt="Early layout of the caravanserai desert village concept" onclick="openLightbox(this.src, this.alt)">
         <div class="body-image-caption">Early layout of the caravanserai desert village concept.</div>
-        <p>[More images and process notes go here.]</p>
-      `
-    },
-    {
-      id: 'lemonade-party',
-      accentColor: '#e0c23e',
-      title: 'Lemonade Party',
-      roles: ['Game Design'],
-      studio: 'Two Page Games',
-      year: '2023',
-      cover: 'https://picsum.photos/seed/lemonade-cover/1600/800',
-      gallery: [
-        'https://picsum.photos/seed/lemonade-1/800/600',
-        'https://picsum.photos/seed/lemonade-2/800/600'
-      ],
-      body: `
-        <p>A casual mobile game built around intuitive, quick-play mechanics.</p>
-        <ul>
-          <li>Developed player interaction, level progression, and reward-loop systems to boost retention on mobile.</li>
-        </ul>
-        <p>[More images and process notes go here.]</p>
-      `
-    },
-    {
-      id: 'hexoria',
-      accentColor: '#2596a0',
-      title: 'Hexoria',
-      roles: ['Game Design', '3D Art'],
-      studio: 'Two Page Games',
-      year: '2023',
-      cover: 'https://picsum.photos/seed/hexoria-cover/1600/800',
-      gallery: [
-        'https://picsum.photos/seed/hexoria-1/800/600',
-        'https://picsum.photos/seed/hexoria-2/800/600'
-      ],
-      body: `
-        <p>A turn-based roguelite card game focused on resource management.</p>
-        <ul>
-          <li>Contributed to gameplay elements and resource-management design.</li>
-          <li>Hard-surface modeling, implemented in Unity.</li>
-        </ul>
-        <p>[More images and process notes go here.]</p>
-      `
-    },
-    {
-      id: 'early-prototypes',
-      accentColor: '#5b6b8c',
-      title: 'Early Prototypes',
-      roles: ['Game Design', 'Level Design', '3D Art'],
-      studio: 'ODTÜ Teknokent / Redactor Interactive',
-      year: '2022 — 2023',
-      cover: 'https://picsum.photos/seed/odtu-cover/1600/800',
-      gallery: [
-        'https://picsum.photos/seed/odtu-1/800/600',
-        'https://picsum.photos/seed/odtu-2/800/600'
-      ],
-      body: `
-        <p>A handful of early prototypes from Redactor Interactive's pre-incubation phase and its first shipped project.</p>
-        <ul>
-          <li>A competitive 3D platform/shooter/multiplayer game inspired by Garry's Mod Deathrun.</li>
-          <li>An FPS built around a first-responder police officer concept with narrative progression.</li>
-          <li>An RC-car racing game concept.</li>
-          <li><b>Carachnophobia</b> — Redactor Interactive's first release. Contributed to core gameplay mechanics, combat and enemy design, world-building support, level block-outs, and hard-surface/creature modeling. <a class="inline-link" href="#" target="_blank">Steam page →</a> <span style="color:#6b6b66; font-size:12px;">(link to be added)</span></li>
-        </ul>
         <p>[More images and process notes go here.]</p>
       `
     }

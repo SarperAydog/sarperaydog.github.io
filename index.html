@@ -374,15 +374,7 @@
 <body>
 
   <div class="video-banner" id="video-banner">
-    <iframe
-      class="yt-cover"
-      src="https://www.youtube-nocookie.com/embed/_c6lbdXHrvU?autoplay=1&mute=1&loop=1&playlist=_c6lbdXHrvU&start=30&end=50&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1"
-      title="Environment showcase"
-      frameborder="0"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+    <div id="home-yt-player"></div>
   </div>
 
   <header>
@@ -844,6 +836,51 @@
   }
 
   renderGallery();
+
+  // --- Homepage banner: robust loop that always restarts at CLIP_START (avoids YouTube's loop-to-0 quirk) ---
+  const HOME_CLIP_VIDEO_ID = '_c6lbdXHrvU';
+  const HOME_CLIP_START = 30;
+  const HOME_CLIP_END = 50;
+  let homePlayer;
+
+  const ytApiTag = document.createElement('script');
+  ytApiTag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytApiTag);
+
+  function onYouTubeIframeAPIReady(){
+    homePlayer = new YT.Player('home-yt-player', {
+      videoId: HOME_CLIP_VIDEO_ID,
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        disablekb: 1,
+        modestbranding: 1,
+        rel: 0,
+        iv_load_policy: 3,
+        start: HOME_CLIP_START,
+        playsinline: 1
+      },
+      events: {
+        onReady: (e) => {
+          e.target.getIframe().classList.add('yt-cover');
+          e.target.mute();
+          e.target.seekTo(HOME_CLIP_START, true);
+          e.target.playVideo();
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) {
+            clearInterval(window._homeLoopCheck);
+            window._homeLoopCheck = setInterval(() => {
+              if (homePlayer.getCurrentTime && homePlayer.getCurrentTime() >= HOME_CLIP_END) {
+                homePlayer.seekTo(HOME_CLIP_START, true);
+              }
+            }, 250);
+          }
+        }
+      }
+    });
+  }
 
   function openLightbox(src, alt){
     document.getElementById('lightbox-img').src = src;

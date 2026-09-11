@@ -737,12 +737,6 @@
   const navWork = document.getElementById('nav-work');
   const navAbout = document.getElementById('nav-about');
   const videoBanner = document.getElementById('video-banner');
-  const videoBannerDefaultHTML = videoBanner.innerHTML; // saved so we can restore the video on Work/About
-
-  function restoreVideoBanner(){
-    videoBanner.innerHTML = videoBannerDefaultHTML;
-    videoBanner.style.display = '';
-  }
 
   function showAbout(){
     galleryView.style.display = 'none';
@@ -750,7 +744,7 @@
     aboutView.style.display = 'block';
     navWork.classList.remove('active');
     navAbout.classList.add('active');
-    restoreVideoBanner();
+    videoBanner.style.display = 'none';
     window.scrollTo(0,0);
   }
 
@@ -792,7 +786,7 @@
     aboutView.style.display = 'none';
     navWork.classList.add('active');
     navAbout.classList.remove('active');
-    restoreVideoBanner();
+    videoBanner.style.display = '';
     window.scrollTo(0,0);
   }
 

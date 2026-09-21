@@ -122,6 +122,15 @@
   .tile-overlay span{
     font-size: clamp(11px, 1.15vw, 20px); color:#d8d5cc; margin-top:8px;
   }
+  .tile-coming-soon{ cursor: default; }
+  .coming-soon-badge{
+    position:absolute; bottom:14px; left:14px; z-index:2;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700; font-size:12px; letter-spacing:0.06em;
+    text-transform:uppercase; color:#0a0a0a;
+    background:#e8a44c;
+    padding:5px 11px; border-radius:3px;
+  }
   .tile-badges{
     position:absolute; top:14px; right:14px;
     display:flex; align-items:center; gap:7px;
@@ -653,6 +662,13 @@
       `
     },
     {
+      id: 'the-terminal',
+      comingSoon: true,
+      title: 'The Terminal',
+      subtitle: 'Game Design Skills - Action Adventure Level Design Bootcamp',
+      cover: 'the-terminal-cover.png'
+    },
+    {
       id: 'untamed-generation',
       accentColor: '#4d7c4a',
       engine: 'Unreal',
@@ -760,6 +776,8 @@
   const navAbout = document.getElementById('nav-about');
   const videoBanner = document.getElementById('video-banner');
 
+  let isPopStateNav = false;
+
   function showAbout(){
     galleryView.style.display = 'none';
     projectView.style.display = 'none';
@@ -768,6 +786,7 @@
     navAbout.classList.add('active');
     videoBanner.style.display = 'none';
     window.scrollTo(0,0);
+    if(!isPopStateNav) history.pushState({view:'about'}, '', '#about');
   }
 
   const ENGINE_LOGOS = {
@@ -782,7 +801,20 @@
   </svg>`;
 
   function renderGallery(){
-    galleryView.innerHTML = projects.map(p => `
+    galleryView.innerHTML = projects.map(p => {
+      if(p.comingSoon){
+        return `
+      <div class="tile tile-coming-soon">
+        <img class="tile-cover-img" src="${p.cover}" alt="${p.title}">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <div class="tile-overlay">
+          <h3>${p.title}</h3>
+          <span>${p.subtitle}</span>
+        </div>
+      </div>
+    `;
+      }
+      return `
       <div class="tile" onclick="showProject('${p.id}')">
         <img class="tile-cover-img" src="${p.cover}" alt="${p.title}">
         ${(p.engine || p.contentIcon || (p.platforms && p.platforms.length)) ? `
@@ -799,7 +831,8 @@
           <span>${p.roles.join(' · ')}</span>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   function showGallery(){
@@ -810,6 +843,7 @@
     navAbout.classList.remove('active');
     videoBanner.style.display = '';
     window.scrollTo(0,0);
+    if(!isPopStateNav) history.pushState({view:'gallery'}, '', '#work');
   }
 
   function showProject(id){
@@ -849,9 +883,47 @@
     navWork.classList.remove('active');
     navAbout.classList.remove('active');
     window.scrollTo(0,0);
+    if(!isPopStateNav) history.pushState({view:'project', id}, '', '#project/' + id);
   }
 
   renderGallery();
+
+  window.addEventListener('popstate', (e) => {
+    isPopStateNav = true;
+    const state = e.state;
+    if(!state || state.view === 'gallery'){
+      showGallery();
+    } else if(state.view === 'about'){
+      showAbout();
+    } else if(state.view === 'project' && state.id){
+      showProject(state.id);
+    } else {
+      showGallery();
+    }
+    isPopStateNav = false;
+  });
+
+  // route on initial load based on the URL hash, so shared/reloaded links open the right view
+  (function initRoute(){
+    const hash = location.hash;
+    if(hash.startsWith('#project/')){
+      const id = hash.slice('#project/'.length);
+      if(projects.find(p => p.id === id)){
+        isPopStateNav = true;
+        showProject(id);
+        isPopStateNav = false;
+        history.replaceState({view:'project', id}, '', hash);
+        return;
+      }
+    } else if(hash === '#about'){
+      isPopStateNav = true;
+      showAbout();
+      isPopStateNav = false;
+      history.replaceState({view:'about'}, '', hash);
+      return;
+    }
+    history.replaceState({view:'gallery'}, '', '#work');
+  })();
 
   // --- Homepage banner: robust loop that always restarts at CLIP_START (avoids YouTube's loop-to-0 quirk) ---
   const HOME_CLIP_VIDEO_ID = '_c6lbdXHrvU';

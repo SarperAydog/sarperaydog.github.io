@@ -476,16 +476,16 @@
       <div class="about-section">
         <h2>Experience</h2>
         <div class="exp-item">
-          <div class="when">2026 - present</div>
-          <div class="exp-project">G-Hell</div>
-          <div class="exp-role">Game Design, Level Design, Environment Art</div>
-          <div class="where">Lab Rats Interactive (CGL Game Studio)</div>
-        </div>
-        <div class="exp-item">
-          <div class="when">Ongoing</div>
+          <div class="when">Aug 2026 - present</div>
           <div class="exp-project">Solid River</div>
           <div class="exp-role">QA Tester</div>
           <div class="where">welevel, Munich</div>
+        </div>
+        <div class="exp-item">
+          <div class="when">Dec 2025 - present</div>
+          <div class="exp-project">G-Hell</div>
+          <div class="exp-role">Level Design, Game Design, Environment Art</div>
+          <div class="where">Lab Rats Interactive (CGL Game Studio)</div>
         </div>
         <div class="exp-item">
           <div class="when">Aug 2024 - Nov 2024</div>
@@ -664,6 +664,8 @@
     {
       id: 'the-terminal',
       comingSoon: true,
+      engine: 'Unreal',
+      platforms: ['PC'],
       title: 'The Terminal',
       subtitle: 'Game Design Skills - Action Adventure Level Design Bootcamp',
       cover: 'the-terminal-cover.png'
@@ -806,6 +808,14 @@
         return `
       <div class="tile tile-coming-soon">
         <img class="tile-cover-img" src="${p.cover}" alt="${p.title}">
+        ${(p.engine || (p.platforms && p.platforms.length)) ? `
+          <div class="tile-badges">
+            ${p.engine ? (ENGINE_LOGOS[p.engine]
+              ? `<span class="tile-badge-icon" title="${p.engine}"><img src="${ENGINE_LOGOS[p.engine]}" alt="${p.engine}"></span>`
+              : `<span class="tile-badge">${p.engine}</span>`) : ''}
+            ${(p.platforms || []).map(pl => `<span class="tile-badge">${pl}</span>`).join('')}
+          </div>
+        ` : ''}
         <span class="coming-soon-badge">Coming Soon</span>
         <div class="tile-overlay">
           <h3>${p.title}</h3>
